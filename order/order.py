@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 
 
@@ -41,7 +42,23 @@ class Order:
 
         self.driver.get(const.BASE_URL)
 
-        self.driver.find_element(By.CSS_SELECTOR, )
+        self.driver.find_element(By.CSS_SELECTOR, "input[class='search-keyword']").send_keys("ber")
+
+        time.sleep(4)
+
+        buttons = self.driver.find_elements(By.XPATH, "//div[@class='product-action']/button")
+
+        count = len(buttons)
+
+        assert count == 3
+
+        for i in buttons:
+
+            i.click()
+
+
+        
+        
 
 
 
