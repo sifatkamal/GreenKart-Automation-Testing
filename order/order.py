@@ -68,5 +68,20 @@ class Order:
         self.driver.find_element(By.XPATH, "//button[text()='PROCEED TO CHECKOUT']").click()
 
 
+    def cart(self):
+
+        self.driver.find_element(By.CSS_SELECTOR, "input[class='promoCode']").send_keys("rahulshettyacademy")
+
+
+
+
+
+
+
+
+
+
+
+
 
 

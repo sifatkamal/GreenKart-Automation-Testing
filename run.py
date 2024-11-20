@@ -5,3 +5,5 @@ with Order() as bot:
 
     bot.land_first_page()
 
+    bot.cart()
+
