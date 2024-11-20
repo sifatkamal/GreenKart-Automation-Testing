@@ -40,6 +40,8 @@ class Order:
 
     def land_first_page(self):
 
+        listt = []
+
         self.driver.get(const.BASE_URL)
 
         self.driver.find_element(By.CSS_SELECTOR, "input[class='search-keyword']").send_keys("ber")
@@ -56,9 +58,15 @@ class Order:
 
             i.click()
 
+            listt.append(i.find_element(By.XPATH, "parent::div/parent::div/h4").text)
+
+        print(listt)
 
         
-        
+        self.driver.find_element(By.CSS_SELECTOR, "img[alt='Cart']").click()
+
+        self.driver.find_element(By.XPATH, "//button[text()='PROCEED TO CHECKOUT']").click()
+
 
 
 
