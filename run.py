@@ -7,3 +7,5 @@ with Order() as bot:
 
     bot.cart()
 
+    # bot.placeorder()
+

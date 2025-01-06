@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 import time
 
 
@@ -22,7 +23,7 @@ class Order:
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         self.driver = webdriver.Chrome(options=options)
 
-        super(Order, self).__init__()
+        # super(Order, self).__init__()
 
 
         self.driver.implicitly_wait(15)
@@ -60,7 +61,15 @@ class Order:
 
             listt.append(i.find_element(By.XPATH, "parent::div/parent::div/h4").text)
 
-        print(listt)
+            price = self.driver.find_element(By.XPATH, "//p[@class='product-price']").text
+
+            print(price)
+
+
+        # print(listt)
+
+        # self.price = self.driver.find_element(By.XPATH, "//[text()='Price*']")
+        
 
         
         self.driver.find_element(By.CSS_SELECTOR, "img[alt='Cart']").click()
@@ -72,14 +81,26 @@ class Order:
 
         self.driver.find_element(By.CSS_SELECTOR, "input[class='promoCode']").send_keys("rahulshettyacademy")
 
+        # wait = WebDriverWait(self.driver, 5)
 
+        # wait.until()
 
+        time.sleep(5)
 
+        self.driver.find_element(By.CSS_SELECTOR, "button[class='promoBtn']").click()
 
+        time.sleep(5)
 
+        # self.promocode = self.driver.find_element(By.XPATH, "//[text()='Code applied ...']").text
 
+        # print(self.promocode)
 
+        self.driver.find_element(By.XPATH, "//button[text()='Place Order']").click()
 
+    # def placeorder(self):
+
+    #     dropdown = Select(self.driver.find_element(By.))
+    
 
 
 
