@@ -89,7 +89,7 @@ class Order:
 
         self.driver.find_element(By.CSS_SELECTOR, "button[class='promoBtn']").click()
 
-        time.sleep(5)
+        time.sleep(8)
 
         # self.promocode = self.driver.find_element(By.XPATH, "//[text()='Code applied ...']").text
 
@@ -97,9 +97,15 @@ class Order:
 
         self.driver.find_element(By.XPATH, "//button[text()='Place Order']").click()
 
-    # def placeorder(self):
+    def placeorder(self):
 
-    #     dropdown = Select(self.driver.find_element(By.))
+        dropdown = Select(self.driver.find_element(By.CSS_SELECTOR, 'select[style="width: 200px;"]'))
+
+        dropdown.select_by_visible_text("Bangladesh")
+
+        self.driver.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]').click()
+
+        self.driver.find_element(By.XPATH, "//button[text()='Proceed']").click()
     
 
 
