@@ -112,9 +112,6 @@ class Order:
 
         self.driver.find_element(By.XPATH, "//button[text()='Place Order']").click()
 
-        
-
-
     def placeorder(self):
 
         dropdown = Select(self.driver.find_element(By.CSS_SELECTOR, 'select[style="width: 200px;"]'))
@@ -139,9 +136,3 @@ class Order:
         self.driver.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]').click()
 
         self.driver.find_element(By.XPATH, "//button[text()='Proceed']").click()
-    
-
-
-
-
-
