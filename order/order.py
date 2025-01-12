@@ -57,6 +57,10 @@ class Order:
             i.click()
 
             self.listt.append(i.find_element(By.XPATH, "parent::div/parent::div/h4").text)
+
+        for i in self.listt:
+
+            assert 'ber' in i
         
         self.driver.find_element(By.CSS_SELECTOR, "img[alt='Cart']").click()
 
