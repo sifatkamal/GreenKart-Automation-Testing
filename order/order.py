@@ -41,7 +41,7 @@ class Order:
 
     def land_first_page(self):
 
-        listt = []
+        self.listt = []
 
         self.driver.get(const.BASE_URL)
 
@@ -59,18 +59,7 @@ class Order:
 
             i.click()
 
-            listt.append(i.find_element(By.XPATH, "parent::div/parent::div/h4").text)
-
-            price = self.driver.find_element(By.XPATH, "//p[@class='product-price']").text
-
-            print(price)
-
-
-        # print(listt)
-
-        # self.price = self.driver.find_element(By.XPATH, "//[text()='Price*']")
-        
-
+            self.listt.append(i.find_element(By.XPATH, "parent::div/parent::div/h4").text)
         
         self.driver.find_element(By.CSS_SELECTOR, "img[alt='Cart']").click()
 
@@ -79,29 +68,40 @@ class Order:
 
     def cart(self):
 
+        listt2 = []
+
+        products = self.driver.find_elements(By.CSS_SELECTOR, "p.product-name")
+
+        for i in products:
+            if i.text == "":
+                continue
+            else:
+                listt2.append(i.text)
+
+        assert self.listt == listt2, "Last Page's Products are not appeared in the cart properly"
+
+
         self.driver.find_element(By.CSS_SELECTOR, "input[class='promoCode']").send_keys("rahulshettyacademy")
-
-        # wait = WebDriverWait(self.driver, 5)
-
-        # wait.until()
 
         time.sleep(5)
 
-        self.driver.find_element(By.CSS_SELECTOR, "button[class='promoBtn']").click()
+        self.driver.find_element(By.CSS_SELECTOR, ".promoBtn").click()
 
         time.sleep(8)
 
-        # self.promocode = self.driver.find_element(By.XPATH, "//[text()='Code applied ...']").text
-
-        # print(self.promocode)
-
         self.driver.find_element(By.XPATH, "//button[text()='Place Order']").click()
+
+        
 
     def placeorder(self):
 
         dropdown = Select(self.driver.find_element(By.CSS_SELECTOR, 'select[style="width: 200px;"]'))
 
         dropdown.select_by_visible_text("Bangladesh")
+
+        self.driver.find_element(By.XPATH, "//button[text()='Proceed']").click()
+
+        # self.driver.find_element(By.XPATH, "").text
 
         self.driver.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]').click()
 
