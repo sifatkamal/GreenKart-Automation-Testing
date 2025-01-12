@@ -22,10 +22,6 @@ class Order:
         options.add_experimental_option("detach", True)
         options.add_experimental_option('excludeSwitches', ['enable-logging'])
         self.driver = webdriver.Chrome(options=options)
-
-        # super(Order, self).__init__()
-
-
         self.driver.implicitly_wait(15)
         self.driver.maximize_window()
 
@@ -80,6 +76,7 @@ class Order:
 
         assert self.listt == listt2, "Last Page's Products are not appeared in the cart properly"
 
+        total_amount = int(self.driver.find_element(By.CSS_SELECTOR, ".totAmt").text)
 
         self.driver.find_element(By.CSS_SELECTOR, "input[class='promoCode']").send_keys("rahulshettyacademy")
 
@@ -88,6 +85,16 @@ class Order:
         self.driver.find_element(By.CSS_SELECTOR, ".promoBtn").click()
 
         time.sleep(8)
+
+        
+
+        discounted_price = total_amount-(total_amount*0.1)
+
+        actual_discounted_price = float(self.driver.find_element(By.CSS_SELECTOR, ".discountAmt").text)
+
+        assert float(total_amount)>actual_discounted_price
+
+        assert discounted_price==actual_discounted_price
 
         self.driver.find_element(By.XPATH, "//button[text()='Place Order']").click()
 
