@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.select import Select
+from selenium.common.exceptions import NoSuchElementException
 import time
 
 
@@ -78,6 +79,21 @@ class Order:
 
         total_amount = int(self.driver.find_element(By.CSS_SELECTOR, ".totAmt").text)
 
+        summ = 0
+
+        store = 0
+
+        per_product_total = self.driver.find_elements(By.XPATH, "//tr/td[5]/p")
+
+        for i in per_product_total:
+
+            summ = store+int(i.text)
+
+            store = summ
+
+        assert total_amount == summ, "Total Amount is not properly showing"
+        
+
         self.driver.find_element(By.CSS_SELECTOR, "input[class='promoCode']").send_keys("rahulshettyacademy")
 
         time.sleep(5)
@@ -85,8 +101,6 @@ class Order:
         self.driver.find_element(By.CSS_SELECTOR, ".promoBtn").click()
 
         time.sleep(8)
-
-        
 
         discounted_price = total_amount-(total_amount*0.1)
 
@@ -100,6 +114,7 @@ class Order:
 
         
 
+
     def placeorder(self):
 
         dropdown = Select(self.driver.find_element(By.CSS_SELECTOR, 'select[style="width: 200px;"]'))
@@ -108,7 +123,18 @@ class Order:
 
         self.driver.find_element(By.XPATH, "//button[text()='Proceed']").click()
 
-        # self.driver.find_element(By.XPATH, "").text
+        try:
+
+            warning = self.driver.find_element(By.CSS_SELECTOR, "b")
+            
+            assert warning is not None
+        
+        except NoSuchElementException:
+        
+            assert False, "No Warning for not accepting terms and conditions"
+        
+
+        self.driver.find_element(By.XPATH, "//button[text()='Proceed']").click()
 
         self.driver.find_element(By.CSS_SELECTOR, 'input[type="checkbox"]').click()
 
